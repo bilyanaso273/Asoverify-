@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel - asoverify</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Submitted Requests</h2>
+    <div id="requests">
+      <p>Loading requests...</p>
+    </div>
+  </div>
+
+  <script>
+    // Simulated data — replace with Firebase/Firestore or API fetch
+    const sampleRequests = [
+      { type: "NIN", name: "Fatima Musa", status: "Completed" },
+      { type: "VTU", name: "Ibrahim Bello", status: "Pending" }
+    ];
+
+    const container = document.getElementById("requests");
+    container.innerHTML = "";
+
+    sampleRequests.forEach(req => {
+      const div = document.createElement("div");
+      div.classList.add("card");
+      div.innerHTML = `
+        <h3>${req.type} Request</h3>
+        <p>User: ${req.name}</p>
+        <p>Status: ${req.status}</p>
+      `;
+      container.appendChild(div);
+    });
+  </script>
+
+</body>
+</html><script type="module">
+  import { checkAdminAccess } from './auth.js';
+  checkAdminAccess(); // redirects if not admin
+</script>

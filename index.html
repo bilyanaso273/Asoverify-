@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>asoverify</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="logo">asoverify</div>
+    <nav>
+      <a href="#">Dashboard</a>
+      <a href="#">NIN Services</a>
+      <a href="#">BVN verification</a>
+      <a href="#">VTU Top-Up</a>
+      <a href="#">Settings</a>
+
+  <main>
+    <h2>Dashboard Overview</h2>
+
+    <section class="card-grid">
+
+      <div class="card">
+        <h3>Wallet Balance</h3>
+        <p class="amount">₦0</p>
+        <p>Recharge your wallet using the account details below.</p>
+      </div>
+
+      <div class="card">
+        <h3>Total NIN Verifications</h3>
+        <p class="count">0</p>
+        <p>Completed NIN verifications on this account.</p>
+      </div>
+
+      <div class="card">
+        <h3>Bank Account 1</h3>
+        <p>Access Bank - 1234567890</p>
+        <p>asoverify Technologies</p>
+      </div>
+
+      <div class="card">
+        <h3>Bank Account 2</h3>
+        <p>GTBank - 0987654321</p>
+        <p>asoverify Technologies</p>
+      </div>
+
+      <div class="card">
+        <h3>Today's VTU Transactions</h3>
+        <p class="count">0</p>
+        <p>Includes airtime and data sales today.</p>
+      </div>
+
+      <div class="card">
+        <h3>Today's BVN verification</h3>
+        <p class="count">0</p>
+        <p>Number of BVN checks submitted today.</p>
+      </div>
+
+      <div class="card">
+        <h3>Successful Validations</h3>
+        <p class="count">0</p>
+        <p>Number of successful identity matches.</p>
+      </div>
+
+      <div class="card">
+        <h3>Support Tickets</h3>
+        <p class="count">0</p>
+        <p>Open support issues today.</p>
+      </div>
+  </main>
+
+</body>
+</html><script type="module">
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+
+  const firebaseConfig = {
+  apiKey: "AIzaSyAl9-DJ_o-OxusWUDCN3L_Xf_HTdi9DI9c",
+  authDomain: "asoverify.firebaseapp.com",
+  projectId: "asoverify",
+  storageBucket: "asoverify.firebasestorage.app",
+  messagingSenderId: "977761060590",
+  appId: "1:977761060590:web:e064e1a3e3e43edfa895ff",
+  measurementId: "G-MY3EXX16JT"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+  onAuthStateChanged(auth, user => {
+    if (!user) {
+      window.location.href = "login.html";
+    }
+  });
+</'script>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NIN Personalization - s8v.ng</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>NIN Personalization</h2>
+    <form id="ninForm">
+      <input type="text" id="fullName" placeholder="Full Name" required><br>
+      <input type="text" id="ninNumber" placeholder="NIN Number" required><br>
+      <input type="text" id="dob" placeholder="Date of Birth (YYYY-MM-DD)" required><br>
+      <input type="text" id="phone" placeholder="Phone Number" required><br>
+      <button type="submit">Submit</button>
+    </form>
+    <p id="formStatus"></p>
+  </div>
+
+  <script>
+    document.getElementById("ninForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      document.getElementById("formStatus").textContent = "Sending

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BVN Verification - asoverify</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>BVN Verification</h2>
+    <form id="bvnForm">
+      <input type="text" id="bvn" placeholder="Enter BVN Number" required><br>
+      <button type="submit">Verify BVN</button>
+    </form>
+    <p id="bvnStatus"></p>
+
+    <div id="bvnResult" style="margin-top: 20px; display: none;"></div>
+  </div>
+
+  <script>
+    document.getElementById("bvnForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const bvn = document.getElementById("bvn").value;
+      const status = document.getElementById("bvnStatus");
+      const resultBox = document.getElementById("bvnResult");
+
+      status.textContent = "Verifying...";
+
+      fetch("https://smartsmelink.com/api/v1/bvn/verify", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer rrUviNdggfSGuGlGbaZURpkfAX4ebiFn201n721faTlMILRbV3",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ bvn })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          status.textContent = "BVN Verified Successfully!";
+          resultBox.innerHTML = `
+            <div class="card">
+              <h3>Name: ${data.data.name}</h3>
+              <p>Phone: ${data.data.phone}</p>
+              <p>Date of Birth: ${data.data.dob}</p>
+              <p>Gender: ${data.data.gender}</p>
+            </div>
+          `;
+          resultBox.style.display = "block";
+        } else {
+          status.textContent = "Verification failed: " + data.message;
+          resultBox.style.display = "none";
+        }
+      })
+      .catch(() => {
+        status.textContent = "Network error. Try again.";
+        resultBox.style.display = "none";
+      });
+    });
+  </script>
+
+</body>
+</html><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  function downloadBVNSlip(data) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.text("s8v.ng - BVN Verification Slip", 10, 10);
+    doc.text("Full Name: " + data.name, 10, 20);
+    doc.text("Phone: " + data.phone, 10, 30);
+    doc.text("Date of Birth: " + data.dob, 10, 40);
+    doc.text("Gender: " + data.gender, 10, 50);
+    doc.text("Status: Verified", 10, 60);
+
+    doc.save("BVN-Slip.pdf");
+  }
+</script>

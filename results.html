@@ -1,0 +1,14 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  function downloadSlip(ninData) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.text("s8v.ng - NIN Verification Slip", 10, 10);
+    doc.text("Full Name: " + ninData.name, 10, 20);
+    doc.text("NIN: " + ninData.nin, 10, 30);
+    doc.text("Status: Verified", 10, 40);
+
+    doc.save("NIN-Slip.pdf");
+  }
+</script>
